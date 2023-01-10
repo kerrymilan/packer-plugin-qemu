@@ -65,6 +65,7 @@ func (b *Builder) Run(ctx context.Context, ui packersdk.Ui, hook packersdk.Hook)
 			enableVTPM: b.config.VTPM,
 			vtpmType:   b.config.TPMType,
 			isTPM1:     b.config.VTPMUseTPM1,
+			vtpmRoot:   b.config.VTPMRootDir,
 		},
 		&commonsteps.StepCreateFloppy{
 			Files:       b.config.FloppyConfig.FloppyFiles,
