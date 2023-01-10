@@ -119,6 +119,8 @@ func (s *stepCreatevTPM) Cleanup(state multistep.StateBag) {
 		log.Printf("failed to kill swtpm: %s", err)
 	}
 
-	tmpDir := state.Get(swtpmTmpDir).(string)
-	os.RemoveAll(tmpDir)
+	if s.vtpmRoot == "" {
+		tmpDir := state.Get(swtpmTmpDir).(string)
+		os.RemoveAll(tmpDir)
+	}
 }
