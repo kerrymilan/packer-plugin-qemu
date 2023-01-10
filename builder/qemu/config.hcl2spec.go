@@ -104,6 +104,7 @@ type FlatConfig struct {
 	EnableEFI                 *bool             `mapstructure:"efi_boot" required:"false" cty:"efi_boot" hcl:"efi_boot"`
 	OVMFCode                  *string           `mapstructure:"efi_firmware_code" required:"false" cty:"efi_firmware_code" hcl:"efi_firmware_code"`
 	OVMFVars                  *string           `mapstructure:"efi_firmware_vars" required:"false" cty:"efi_firmware_vars" hcl:"efi_firmware_vars"`
+	OVMFPersist               *bool             `mapstructure:"persist_efi_vars" required:"false" cty:"persist_efi_vars" hcl:"persist_efi_vars"`
 	ISOSkipCache              *bool             `mapstructure:"iso_skip_cache" required:"false" cty:"iso_skip_cache" hcl:"iso_skip_cache"`
 	Accelerator               *string           `mapstructure:"accelerator" required:"false" cty:"accelerator" hcl:"accelerator"`
 	AdditionalDiskSize        []string          `mapstructure:"disk_additional_size" required:"false" cty:"disk_additional_size" hcl:"disk_additional_size"`
@@ -253,6 +254,7 @@ func (*FlatConfig) HCL2Spec() map[string]hcldec.Spec {
 		"efi_boot":                     &hcldec.AttrSpec{Name: "efi_boot", Type: cty.Bool, Required: false},
 		"efi_firmware_code":            &hcldec.AttrSpec{Name: "efi_firmware_code", Type: cty.String, Required: false},
 		"efi_firmware_vars":            &hcldec.AttrSpec{Name: "efi_firmware_vars", Type: cty.String, Required: false},
+		"persist_efi_vars":             &hcldec.AttrSpec{Name: "persist_efi_vars", Type: cty.Bool, Required: false },
 		"iso_skip_cache":               &hcldec.AttrSpec{Name: "iso_skip_cache", Type: cty.Bool, Required: false},
 		"accelerator":                  &hcldec.AttrSpec{Name: "accelerator", Type: cty.String, Required: false},
 		"disk_additional_size":         &hcldec.AttrSpec{Name: "disk_additional_size", Type: cty.List(cty.String), Required: false},

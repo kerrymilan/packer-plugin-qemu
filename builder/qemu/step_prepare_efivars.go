@@ -17,6 +17,7 @@ type stepPrepareEfivars struct {
 	EFIEnabled bool
 	OutputDir  string
 	SourcePath string
+	EFIPersist bool
 }
 
 const efivarStateKey string = "EFI_VARS_FILE_PATH"
@@ -66,6 +67,11 @@ func (s *stepPrepareEfivars) Cleanup(state multistep.StateBag) {
 	// therefore we have nothing to cleanup
 	if !ok {
 		return
+	}
+
+	// Option specified to leave EFI vars file in place upon completion
+	if s.EFIPersist {
+	    return
 	}
 
 	os.Remove(efiVarFile.(string))

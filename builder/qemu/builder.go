@@ -115,6 +115,7 @@ func (b *Builder) Run(ctx context.Context, ui packersdk.Ui, hook packersdk.Hook)
 			EFIEnabled: b.config.QemuEFIBootConfig.EnableEFI,
 			OutputDir:  b.config.OutputDir,
 			SourcePath: b.config.QemuEFIBootConfig.OVMFVars,
+			EFIPersist: b.config.QemuEFIBootConfig.OVMFPersist,
 		},
 		&stepRun{
 			DiskImage: b.config.DiskImage,

@@ -184,6 +184,10 @@ type QemuEFIBootConfig struct {
 	//
 	// Default: /usr/share/OVMF/OVMF_VARS.fd
 	OVMFVars string `mapstructure:"efi_firmware_vars" required:"false"`
+	// Don't remove EFI vars during cleanup
+	//
+	// Default: false
+	OVMFPersist bool `mapstructure:"persist_efi_vars" required:"false"`
 }
 
 func (efiCfg *QemuEFIBootConfig) loadDefaults() {
