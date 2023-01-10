@@ -16,6 +16,7 @@ type stepCreatevTPM struct {
 	enableVTPM bool
 	vtpmType   string
 	isTPM1     bool
+	vtpmRoot   string
 }
 
 const (
@@ -45,11 +46,25 @@ func (s *stepCreatevTPM) Run(ctx context.Context, state multistep.StateBag) mult
 		return multistep.ActionHalt
 	}
 
-	vtpmDeviceDir, err := os.MkdirTemp("", "")
-	if err != nil {
-		ui.Error(fmt.Sprintf("failed to create vtpm state directory: %s", err))
-		return multistep.ActionHalt
+	var vtpmDeviceDir string
+	if s.vtpmRoot == "" {
+		vtpmDeviceDir, err = os.MkdirTemp("", "")
+		if err != nil {
+			ui.Error(fmt.Sprintf("failed to create temporary vtpm state directory: %s", err))
+			return multistep.ActionHalt
+		}
+	} else {
+		vtpmDeviceDir = s.vtpmRoot
+		mode := os.FileMode(0755)
+		if _, err := os.Stat(vtpmDeviceDir); os.IsNotExist(err) {
+			err := os.Mkdir(vtpmDeviceDir, mode)
+			if err != nil {
+				ui.Error(fmt.Sprintf("failed to create vtpm state directory: %s", err))
+				return multistep.ActionHalt
+			}
+		}
 	}
+
 
 	state.Put(swtpmTmpDir, vtpmDeviceDir)
 

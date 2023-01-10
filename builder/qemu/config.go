@@ -578,6 +578,12 @@ type Config struct {
 	//  * ARM: tpm-tis-device
 	//  * PPC (p-series): tpm-spapr
 	TPMType string `mapstructure:"tpm_device_type" required:"false"`
+	// Directory in which to store the TPM's persistent state data. 
+	// 
+	// By default, this is initialized to a temporary directory and removed upon 
+	// completion of the build. If specified, the directory will be created if 
+	// it does not exist.
+	VTPMRootDir string `mapstructure:"vtpm_root" required:"false"`
 	// This is an array of tuples of boot commands, to type when the virtual
 	// machine is booted. The first element of the tuple is the actual boot
 	// command. The second element of the tuple, which is optional, is a
